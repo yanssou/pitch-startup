@@ -9,7 +9,8 @@ export default async function Home({
   searchParams: Promise<{ query?: string }>;
 }) {
   const query = (await searchParams).query;
-  const { data: posts } = await sanityFetch({ query: STARTUPS_QUERY });
+  const params = { search: query || null };
+  const { data: posts } = await sanityFetch({ query: STARTUPS_QUERY, params });
 
   return (
     <>
@@ -35,7 +36,7 @@ export default async function Home({
               <StartupCard key={post?._id} post={post} />
             ))
           ) : (
-            <p className="no-results">Aucun startup trouvée</p>
+            <p className="no-results">Aucune startup trouvée</p>
           )}
         </ul>
       </section>
